@@ -11,16 +11,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.android.synthetic.main.dream_view.view.*
 
 
-class DreamViewAdapter(val context: Context, val db: SQLiteDatabase): RecyclerView.Adapter<MyViewHolder>() {
+class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams: ArrayList<DreamObject>): RecyclerView.Adapter<MyViewHolder>() {
+
+
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): MyViewHolder {
         val layoutInflater: LayoutInflater = LayoutInflater.from(p0.context)
         val eachDremView = layoutInflater.inflate(R.layout.dream_view, p0, false)
         return MyViewHolder(eachDremView)
 
     }
+
+
 
     override fun getItemCount(): Int {
         val cursor: Cursor = db.query(TableInfo.TABLE_NAME,
@@ -38,6 +43,15 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase): RecyclerVi
         val title: TextView = p0.view.title_text_view
         val desc: TextView = p0.view.desc_text_view
 
+
+        title.setText(dreams[p0.adapterPosition].title)
+        desc.setText(dreams[p0.adapterPosition].desc)
+
+
+
+
+
+
         val cursor: Cursor = db.query(TableInfo.TABLE_NAME,
             null, //select all columns
             BaseColumns._ID + "=?", //filter by column ID
@@ -51,22 +65,36 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase): RecyclerVi
 
 
                 eachView_dream.setOnClickListener {
+
                     val intent = Intent(context, AddDreamActivity::class.java)
 
-                    val titleEdit = title.text
-                    val descEdit = desc.text
-                    val idEdit = p0.adapterPosition.plus(1) //recycler starts at 0 table starts from 1
-
+                    val titleEdit = dreams[p0.adapterPosition].title
+                    val descEdit = dreams[p0.adapterPosition].desc
+                    val idEdit = dreams[p0.adapterPosition].id.toString()
 
 
                     intent.putExtra("title", titleEdit)
                     intent.putExtra("desc", descEdit)
                     intent.putExtra("id",idEdit)
 
-                    context.startActivities(arrayOf(intent))
-
-
+                    context.startActivity(intent)
                 }
+
+                eachView_dream.setOnLongClickListener(object : View.OnLongClickListener {
+                    override fun onLongClick(v: View?): Boolean {
+
+                            db.delete(TableInfo.TABLE_NAME,BaseColumns._ID + "=?",
+                                arrayOf(dreams[p0.adapterPosition].id.toString()))
+
+
+
+                        notifyItemRemoved(p0.adapterPosition)
+
+                        return true
+                    }
+
+
+                })
 
             }
         }
