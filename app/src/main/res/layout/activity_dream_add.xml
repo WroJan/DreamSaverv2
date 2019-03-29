@@ -1,6 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent">
+                                             xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <ScrollView android:layout_width="407dp" android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="1.0" app:layout_constraintVertical_bias="0.0"
+                android:id="@+id/scrollView3">
+        <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView3"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="50dp"
+                    android:textSize="35sp"
+                    android:textStyle="bold" android:text="The Dream"/>
+            <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/title_text_input"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="50dp"
+                    android:layout_below="@+id/textView3" android:hint="Title"/>
+
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textInput"
+                    android:layout_below="@+id/title_text_input"
+                    android:layout_marginTop="50dp">
+
+                <android.support.design.widget.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Description"
+                        android:id="@+id/desc_text_input" android:textAlignment="viewStart"/>
+
+            </android.support.design.widget.TextInputLayout>
+            <TextView
+                    android:text="@string/the_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/date_pick"
+                    android:layout_alignStart="@+id/checkBox"
+                    android:textSize="22sp"
+                    android:layout_below="@id/textInput"
+                    android:layout_marginTop="50dp" android:layout_alignParentStart="true"
+                    android:layout_marginStart="50dp" android:layout_marginEnd="50dp"
+                    android:layout_marginBottom="50dp"/>
+            <CheckBox
+                    android:text="CheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/textInput"
+                    android:layout_below="@id/textInput"
+                    android:layout_margin="50dp"
+                    android:id="@+id/checkbox"/>
+            <Button
+                    android:text="SAVE"
+                    android:layout_below="@id/checkbox"
+                    android:layout_marginTop="-18dp"
+                    android:layout_width="wrap_content"
+                    android:padding="40dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/add_dream_btn" android:layout_marginBottom="64dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="145dp"/>
+
+        </RelativeLayout>
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

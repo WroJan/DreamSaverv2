@@ -51,4 +51,7 @@ class MainActivity : AppCompatActivity() {
             recycler_view.layoutManager = LinearLayoutManager(this)
             recycler_view.adapter = DreamViewAdapter(applicationContext, db, dreams)
         }
+
+
+
 }
