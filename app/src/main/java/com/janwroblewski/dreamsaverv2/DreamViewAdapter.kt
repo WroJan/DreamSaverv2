@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_dream_add.view.*
 import kotlinx.android.synthetic.main.dream_view.view.*
 
 
@@ -44,8 +45,12 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
         val desc: TextView = p0.view.desc_text_view
 
 
+
+
         title.setText(dreams[p0.adapterPosition].title)
         desc.setText(dreams[p0.adapterPosition].desc)
+
+
 
 
 
@@ -64,6 +69,8 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
                 desc.setText(cursor.getString(2))
 
 
+
+
                 eachView_dream.setOnClickListener {
 
                     val intent = Intent(context, AddDreamActivity::class.java)
@@ -71,6 +78,7 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
                     val titleEdit = dreams[p0.adapterPosition].title
                     val descEdit = dreams[p0.adapterPosition].desc
                     val idEdit = dreams[p0.adapterPosition].id.toString()
+
 
 
                     intent.putExtra("title", titleEdit)

@@ -9,8 +9,8 @@ object TableInfo: BaseColumns {
     const val TABLE_NAME = "Dream"
     const val TABLE_COLUMN_TITLE = "Title"
     const val TABLE_COLUMN_DESC = "Description"
-    //const val TABLE_COLUMN_DATE = "Dream Date"
-    //const val TABLE_COLUMN_TYPE = "Night mare"
+
+
 }
 object Commands {
     //basic commands of sql light database
@@ -19,6 +19,7 @@ object Commands {
                 "${BaseColumns._ID} INTEGER PRIMARY KEY," +
                 "${TableInfo.TABLE_COLUMN_TITLE} TEXT NOT NULL," +
                 "${TableInfo.TABLE_COLUMN_DESC} TEXT NOT NULL)"
+
 
     //if table exists than sql_delete_table will be used to delete tables permanently or delete and than updated
     const val SQL_DELETE_TABLE = "DROP TABLE IF EXISTS ${TableInfo.TABLE_NAME}"

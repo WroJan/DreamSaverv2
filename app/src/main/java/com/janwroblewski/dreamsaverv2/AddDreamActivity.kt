@@ -32,7 +32,7 @@ class AddDreamActivity : AppCompatActivity() {
             val title: String = title_text_input.text.toString()
             val desc: String = desc_text_input.text.toString()
 
-            if (title.isNullOrEmpty()) {
+            if (title.isEmpty()) {
                 Toast.makeText(this, "Please add Title", Toast.LENGTH_SHORT).show()
             } else {
 
@@ -40,6 +40,7 @@ class AddDreamActivity : AppCompatActivity() {
                 val value = ContentValues()
                 value.put(TableInfo.TABLE_COLUMN_TITLE, title)
                 value.put(TableInfo.TABLE_COLUMN_DESC, desc)
+
 
 
 
