@@ -44,18 +44,8 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
         val title: TextView = p0.view.title_text_view
         val desc: TextView = p0.view.desc_text_view
 
-
-
-
         title.setText(dreams[p0.adapterPosition].title)
         desc.setText(dreams[p0.adapterPosition].desc)
-
-
-
-
-
-
-
 
         val cursor: Cursor = db.query(TableInfo.TABLE_NAME,
             null, //select all columns
@@ -67,8 +57,6 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
             if(!(cursor.getString(1).isNullOrEmpty() && cursor.getString(2).isNullOrEmpty())) {
                 title.setText(cursor.getString(1))
                 desc.setText(cursor.getString(2))
-
-
 
 
                 eachView_dream.setOnClickListener {

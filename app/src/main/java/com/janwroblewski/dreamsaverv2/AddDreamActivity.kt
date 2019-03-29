@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteDatabase
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.BaseColumns
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_dream_add.*
 import java.text.SimpleDateFormat
@@ -19,51 +22,64 @@ class AddDreamActivity : AppCompatActivity() {
 
         dater()
 
+        if(intent.hasExtra("title")) {title_text_input.setText(intent.getStringExtra("title"))}
+        if(intent.hasExtra("desc")) {desc_text_input.setText(intent.getStringExtra("desc"))}
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menuInflater.inflate(R.menu.menu_detail, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if(item?.itemId == R.id.save_btn) {
+
+            dreamHandler()
+
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun dreamHandler() {
+
         val dbHelper = DataBaseHelper(applicationContext)
         val db: SQLiteDatabase = dbHelper.writableDatabase
 
-        if(intent.hasExtra("title")) {title_text_input.setText(intent.getStringExtra("title"))}
-        if(intent.hasExtra("desc")) {desc_text_input.setText(intent.getStringExtra("desc"))}
+        val title: String = title_text_input.text.toString()
+        val desc: String = desc_text_input.text.toString()
+
+        if (title.isEmpty()) {
+            title_text_input.setError("Please enter Title")
+            Toast.makeText(this, "Please add Title", Toast.LENGTH_SHORT).show()
+        } else {
 
 
 
-        add_dream_btn.setOnClickListener {
 
-            val title: String = title_text_input.text.toString()
-            val desc: String = desc_text_input.text.toString()
+            val value = ContentValues()
+            value.put(TableInfo.TABLE_COLUMN_TITLE, title)
+            value.put(TableInfo.TABLE_COLUMN_DESC, desc)
 
-            if (title.isEmpty()) {
-                Toast.makeText(this, "Please add Title", Toast.LENGTH_SHORT).show()
+            if (intent.hasExtra("id")) {
+
+                db.update(
+                    TableInfo.TABLE_NAME, value, BaseColumns._ID + "=?",
+                    arrayOf(intent.getStringExtra("id"))
+                )
+                Toast.makeText(this, "Dream Updated", Toast.LENGTH_SHORT).show()
+                finish()
+
             } else {
+                db.insertOrThrow(TableInfo.TABLE_NAME, null, value)
+                Toast.makeText(this, "Dream saved", Toast.LENGTH_SHORT).show()
+                finish()
 
-
-                val value = ContentValues()
-                value.put(TableInfo.TABLE_COLUMN_TITLE, title)
-                value.put(TableInfo.TABLE_COLUMN_DESC, desc)
-
-
-
-
-
-                if (intent.hasExtra("id")) {
-
-                    db.update(
-                        TableInfo.TABLE_NAME, value, BaseColumns._ID + "=?",
-                        arrayOf(intent.getStringExtra("id"))
-                    )
-                    Toast.makeText(this, "Dream Updated", Toast.LENGTH_SHORT).show()
-                    finish()
-
-                } else {
-                    db.insertOrThrow(TableInfo.TABLE_NAME, null, value)
-                    Toast.makeText(this, "Dream saved", Toast.LENGTH_SHORT).show()
-                    finish()
-
-                }
             }
         }
-    }
 
+    }
 
     private fun  dater() {
         val date = Calendar.getInstance().getTime()

@@ -19,9 +19,14 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AddDreamActivity::class.java)
             startActivity(intent)
 
+
+
         }
 
+
     }
+
+
         override fun onResume() {
             super.onResume()
 

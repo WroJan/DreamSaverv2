@@ -2,4 +2,6 @@
     <string name="app_name">Dream Saver v2</string>
     <string name="button_add">Button</string>
     <string name="the_date">Date</string>
+    <string name="save_dream">Save</string>
+
 </resources>

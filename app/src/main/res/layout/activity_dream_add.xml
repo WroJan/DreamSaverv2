@@ -55,20 +55,11 @@
                     android:id="@+id/date_pick"
                     android:textSize="22sp"
                     android:layout_below="@id/textInput"
-                    android:layout_marginTop="50dp" android:layout_alignParentStart="true"
-                    android:layout_marginStart="50dp" android:layout_marginEnd="50dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="50dp"
                     android:layout_marginBottom="50dp"/>
-            <Button
-                    android:text="SAVE"
-                    android:layout_below="@id/date_pick"
-                    android:layout_marginTop="-18dp"
-                    android:layout_width="wrap_content"
-                    android:padding="40dp"
-                    android:layout_height="match_parent"
-                    android:id="@+id/add_dream_btn"
-                    android:layout_marginBottom="64dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="145dp"/>
 
         </RelativeLayout>
     </ScrollView>

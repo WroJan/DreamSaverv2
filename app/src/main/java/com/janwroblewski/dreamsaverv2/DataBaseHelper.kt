@@ -16,8 +16,8 @@ object Commands {
     //basic commands of sql light database
     const val SQL_CREATE_TABLE: String =
         "CREATE TABLE ${TableInfo.TABLE_NAME} (" +
-                "${BaseColumns._ID} INTEGER PRIMARY KEY," +
-                "${TableInfo.TABLE_COLUMN_TITLE} TEXT NOT NULL," +
+                "${BaseColumns._ID} INTEGER PRIMARY KEY, " +
+                "${TableInfo.TABLE_COLUMN_TITLE} TEXT NOT NULL, " +
                 "${TableInfo.TABLE_COLUMN_DESC} TEXT NOT NULL)"
 
 
