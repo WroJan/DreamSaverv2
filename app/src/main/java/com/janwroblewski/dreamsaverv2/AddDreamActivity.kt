@@ -16,14 +16,29 @@ import java.util.*
 
 class AddDreamActivity : AppCompatActivity() {
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dream_add)
+
+        val actionbarBack = supportActionBar
+        actionbarBack!!.title = "Dream Save"
+
+        actionbarBack.setDisplayHomeAsUpEnabled(true)
+
+
 
         dater()
 
         if(intent.hasExtra("title")) {title_text_input.setText(intent.getStringExtra("title"))}
         if(intent.hasExtra("desc")) {desc_text_input.setText(intent.getStringExtra("desc"))}
+    }
+
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
