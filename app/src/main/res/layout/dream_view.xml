@@ -26,17 +26,10 @@
         <ImageButton
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                app:srcCompat="?attr/actionModeShareDrawable"
-                android:id="@+id/share_btn"
-                android:layout_marginTop="78dp"
-                android:layout_marginHorizontal="250dp"/>
-        <ImageButton
-                android:layout_width="36dp"
-                android:layout_height="36dp"
                 app:srcCompat="?attr/actionModeCopyDrawable"
                 android:id="@+id/copy_btn"
-                android:layout_marginTop="78dp"
-                android:layout_marginHorizontal="200dp"/>
+                android:layout_marginTop="70dp"
+                android:layout_marginHorizontal="250dp"/>
         <TextView
                 android:id="@+id/card_view_date"
                 android:text="13/12/2019"

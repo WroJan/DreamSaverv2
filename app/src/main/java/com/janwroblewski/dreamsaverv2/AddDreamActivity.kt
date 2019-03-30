@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.ContentValues
 import android.content.DialogInterface
+import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -35,20 +36,27 @@ class AddDreamActivity : AppCompatActivity() {
 
         if(intent.hasExtra("title")) {title_text_input.setText(intent.getStringExtra("title"))}
         if(intent.hasExtra("desc")) {desc_text_input.setText(intent.getStringExtra("desc"))}
+
+        share_btn.setOnClickListener {
+            shareTheDream()
+        }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
+
+
+
+    override fun onSupportNavigateUp(): Boolean {//back arrow button in menu at the top
         alertOnBackPressed()
         return super.onSupportNavigateUp()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
 
-        menuInflater.inflate(R.menu.menu_detail, menu)
+        menuInflater.inflate(R.menu.menu_detail, menu) //save button inflater
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean { // method to handle save button
         if(item?.itemId == R.id.save_btn) {
 
             dreamHandler()
@@ -58,7 +66,7 @@ class AddDreamActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onBackPressed() {
+    override fun onBackPressed() { //what is happening when back button is pressed
         alertOnBackPressed()
     }
 
@@ -125,7 +133,7 @@ class AddDreamActivity : AppCompatActivity() {
         }
     }
 
-    private fun alertOnBackPressed() {
+    private fun alertOnBackPressed() { // function is reused in two buttons, top arrow and back pressed.
 
         val builder = AlertDialog.Builder(this)
         builder.setMessage("Discard the Dream?")
@@ -143,5 +151,26 @@ class AddDreamActivity : AppCompatActivity() {
         })
         builder.show()
     }
+
+    private fun shareTheDream() {
+        val titleFromScreen = title_text_input.text.toString()
+        val descFromScreen = desc_text_input.text.toString()
+
+        if(titleFromScreen.isEmpty() || descFromScreen.isEmpty()) {
+            Toast.makeText(this,"Enter Title & Description before sharing", Toast.LENGTH_SHORT).show()
+        }
+        else {
+
+            val shareIntent = Intent()//create new intent as the other one above will open same reopen activity
+            shareIntent.action = Intent.ACTION_SEND //set intent to send data
+            shareIntent.putExtra(Intent.EXTRA_TEXT, titleFromScreen) //send data to the intent
+            shareIntent.putExtra(Intent.EXTRA_TEXT, descFromScreen)
+            shareIntent.type = "text/plain" //set it as plain text
+
+            startActivity(Intent.createChooser(shareIntent, "Share Dream: ")) //open share activity build in the device.
+        }
+    }
+
+
 
 }

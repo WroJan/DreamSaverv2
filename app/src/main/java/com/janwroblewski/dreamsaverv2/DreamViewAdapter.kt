@@ -1,20 +1,20 @@
 package com.janwroblewski.dreamsaverv2
 
-import android.content.Context
-import android.content.Intent
+import android.app.AlertDialog
+import android.app.Service
+import android.content.*
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
-import android.support.v4.content.ContextCompat.startActivities
+import android.support.v4.content.ContextCompat.createDeviceProtectedStorageContext
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_dream_add.view.*
 import kotlinx.android.synthetic.main.dream_view.view.*
+
 
 
 class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams: ArrayList<DreamObject>): RecyclerView.Adapter<MyViewHolder>() {
@@ -25,12 +25,7 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
         val eachDremView = layoutInflater.inflate(R.layout.dream_view, p0, false)
         return MyViewHolder(eachDremView)
 
-
-
-
     }
-
-
 
     override fun getItemCount(): Int {
         val cursor: Cursor = db.query(TableInfo.TABLE_NAME,
@@ -42,6 +37,8 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
         return getNumberOfItems
 
     }
+
+
 
     override fun onBindViewHolder(p0: MyViewHolder, p1: Int) {
         val eachView_dream = p0.view.each_dream_view
@@ -58,22 +55,41 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
                 toString()),null,null,null)
 
         p0.view.copy_btn.setOnClickListener {
-            Log.d("tagggdfdfdfccc", "copy is peressed")
+                val cm = context.getSystemService(Service.CLIPBOARD_SERVICE) as ClipboardManager // created service clipboard manager
+                //copy and crated string of RecyclerView dream_view
+                val clipdata = ClipData.newPlainText("Copy Text",
+                    "Dream: " + title.text + "\n" + "Desc: " + desc.text)
+                cm.primaryClip = clipdata
+            Toast.makeText(context,"Copied to clipboard", Toast.LENGTH_SHORT).show()
+
+
+
 
         }
+
+
+        eachView_dream.setOnLongClickListener(object : View.OnLongClickListener {
+            override fun onLongClick(v: View?): Boolean {
+                    db.delete(TableInfo.TABLE_NAME,BaseColumns._ID + "=?",
+                        arrayOf(dreams[p0.adapterPosition].id.toString())) //remove from sqlight table
+
+                    dreams.removeAt(p0.adapterPosition)//remove from arraylist dreams
+
+                    notifyItemRemoved(p0.adapterPosition)//notify recycler view that item was deleted so he can update the view.
+
+
+
+                return true //return type boolean required for over right methods
+            }
+
+
+        })
+
 
         if(cursor.moveToFirst()) {
             if(!(cursor.getString(1).isNullOrEmpty() && cursor.getString(2).isNullOrEmpty())) {
                 title.setText(cursor.getString(1))
                 desc.setText(cursor.getString(2))
-
-
-
-
-
-
-                
-
 
                 eachView_dream.setOnClickListener {
 
@@ -91,26 +107,6 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
 
                     context.startActivity(intent)
                 }
-
-                eachView_dream.setOnLongClickListener(object : View.OnLongClickListener {
-                    override fun onLongClick(v: View?): Boolean {
-                        db.delete(TableInfo.TABLE_NAME,BaseColumns._ID + "=?",
-                            arrayOf(dreams[p0.adapterPosition].id.toString())) //remove from sqlight table
-
-                        dreams.removeAt(p0.adapterPosition)//remove from arraylist dreams
-
-                        notifyItemRemoved(p0.adapterPosition)//notify recycler view that item was deleted so he can update the view.
-
-                        return true //return type boolean required for over right methods
-                    }
-
-
-                })
-
-
-
-
-
 
 
             }

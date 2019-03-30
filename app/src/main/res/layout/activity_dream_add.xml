@@ -60,6 +60,14 @@
                     android:layout_marginStart="50dp"
                     android:layout_marginEnd="50dp"
                     android:layout_marginBottom="50dp"/>
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:srcCompat="?attr/actionModeShareDrawable"
+                    android:id="@+id/share_btn"
+                    android:layout_below="@id/date_pick"
+                    android:layout_marginLeft="320dp"
+                    android:layout_marginTop="30dp"/>
+
 
         </RelativeLayout>
     </ScrollView>
