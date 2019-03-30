@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
 import android.support.v4.content.ContextCompat.startActivities
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,9 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
         val layoutInflater: LayoutInflater = LayoutInflater.from(p0.context)
         val eachDremView = layoutInflater.inflate(R.layout.dream_view, p0, false)
         return MyViewHolder(eachDremView)
+
+
+
 
     }
 
@@ -53,10 +57,22 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
             arrayOf(p0.adapterPosition.plus(1).//recycler view starts from 0 and table id starts at 1 so w need to add one
                 toString()),null,null,null)
 
+        p0.view.copy_btn.setOnClickListener {
+            Log.d("tagggdfdfdfccc", "copy is peressed")
+
+        }
+
         if(cursor.moveToFirst()) {
             if(!(cursor.getString(1).isNullOrEmpty() && cursor.getString(2).isNullOrEmpty())) {
                 title.setText(cursor.getString(1))
                 desc.setText(cursor.getString(2))
+
+
+
+
+
+
+                
 
 
                 eachView_dream.setOnClickListener {
@@ -78,19 +94,24 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
 
                 eachView_dream.setOnLongClickListener(object : View.OnLongClickListener {
                     override fun onLongClick(v: View?): Boolean {
+                        db.delete(TableInfo.TABLE_NAME,BaseColumns._ID + "=?",
+                            arrayOf(dreams[p0.adapterPosition].id.toString())) //remove from sqlight table
 
-                            db.delete(TableInfo.TABLE_NAME,BaseColumns._ID + "=?",
-                                arrayOf(dreams[p0.adapterPosition].id.toString()))
+                        dreams.removeAt(p0.adapterPosition)//remove from arraylist dreams
 
+                        notifyItemRemoved(p0.adapterPosition)//notify recycler view that item was deleted so he can update the view.
 
-
-                        notifyItemRemoved(p0.adapterPosition)
-
-                        return true
+                        return true //return type boolean required for over right methods
                     }
 
 
                 })
+
+
+
+
+
+
 
             }
         }

@@ -1,7 +1,9 @@
 package com.janwroblewski.dreamsaverv2
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.content.ContentValues
+import android.content.DialogInterface
 import android.database.sqlite.SQLiteDatabase
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -23,7 +25,7 @@ class AddDreamActivity : AppCompatActivity() {
         setContentView(R.layout.activity_dream_add)
 
         val actionbarBack = supportActionBar
-        actionbarBack!!.title = "Dream Save"
+        actionbarBack!!.title = "Dream Save" // sets title on menu with in the addDreamActivity
 
         actionbarBack.setDisplayHomeAsUpEnabled(true)
 
@@ -35,9 +37,8 @@ class AddDreamActivity : AppCompatActivity() {
         if(intent.hasExtra("desc")) {desc_text_input.setText(intent.getStringExtra("desc"))}
     }
 
-
     override fun onSupportNavigateUp(): Boolean {
-        finish()
+        alertOnBackPressed()
         return super.onSupportNavigateUp()
     }
 
@@ -55,6 +56,10 @@ class AddDreamActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        alertOnBackPressed()
     }
 
     private fun dreamHandler() {
@@ -118,6 +123,25 @@ class AddDreamActivity : AppCompatActivity() {
             dailogPicker.show()
 
         }
+    }
+
+    private fun alertOnBackPressed() {
+
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Discard the Dream?")
+
+        builder.setPositiveButton("Yes", { dialogInterface: DialogInterface, i: Int ->
+            finish()
+        })
+
+        builder.setNegativeButton("No", { dialogInterface: DialogInterface, i: Int ->
+
+        })
+
+        builder.setNeutralButton("Cancel", { dialogInterface: DialogInterface, i: Int ->
+
+        })
+        builder.show()
     }
 
 }
