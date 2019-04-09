@@ -10,7 +10,6 @@ object TableInfo: BaseColumns {
     const val TABLE_COLUMN_TITLE = "Title"
     const val TABLE_COLUMN_DESC = "Description"
 
-
 }
 object Commands {
     //basic commands of sql light database

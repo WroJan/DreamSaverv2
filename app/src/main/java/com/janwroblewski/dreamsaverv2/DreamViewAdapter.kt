@@ -92,20 +92,23 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
                 desc.setText(cursor.getString(2))
 
                 eachView_dream.setOnClickListener {
-
+                    //update when pressed on card view.
                     val intent = Intent(context, AddDreamActivity::class.java)
-
+                    //create new intent
                     val titleEdit = dreams[p0.adapterPosition].title
                     val descEdit = dreams[p0.adapterPosition].desc
                     val idEdit = dreams[p0.adapterPosition].id.toString()
-
+                    //grab all information from array  and sqlight
 
 
                     intent.putExtra("title", titleEdit)
                     intent.putExtra("desc", descEdit)
                     intent.putExtra("id",idEdit)
 
+                    //sends info with puExtra to the intent stated above.
+
                     context.startActivity(intent)
+                    //starts the activity using context that is stated above.
                 }
 
 
@@ -120,3 +123,5 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
 
 
 class MyViewHolder(val view: View): RecyclerView.ViewHolder(view)
+
+
