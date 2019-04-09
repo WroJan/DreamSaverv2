@@ -1,12 +1,10 @@
 package com.janwroblewski.dreamsaverv2
 
-import android.app.AlertDialog
 import android.app.Service
 import android.content.*
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.provider.BaseColumns
-import android.support.v4.content.ContextCompat.createDeviceProtectedStorageContext
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -14,8 +12,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.dream_view.view.*
-
-
 
 class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams: ArrayList<DreamObject>): RecyclerView.Adapter<MyViewHolder>() {
 
@@ -26,7 +22,6 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
         return MyViewHolder(eachDremView)
 
     }
-
     override fun getItemCount(): Int {
         val cursor: Cursor = db.query(TableInfo.TABLE_NAME,
             null, //select all columns
@@ -37,9 +32,6 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
         return getNumberOfItems
 
     }
-
-
-
     override fun onBindViewHolder(p0: MyViewHolder, p1: Int) {
         val eachView_dream = p0.view.each_dream_view
         val title: TextView = p0.view.title_text_view
@@ -61,12 +53,7 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
                     "Dream: " + title.text + "\n" + "Desc: " + desc.text)
                 cm.primaryClip = clipdata
             Toast.makeText(context,"Copied to clipboard", Toast.LENGTH_SHORT).show()
-
-
-
-
         }
-
 
         eachView_dream.setOnLongClickListener(object : View.OnLongClickListener {
             override fun onLongClick(v: View?): Boolean {
@@ -76,12 +63,8 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
                     dreams.removeAt(p0.adapterPosition)//remove from arraylist dreams
 
                     notifyItemRemoved(p0.adapterPosition)//notify recycler view that item was deleted so he can update the view.
-
-
-
                 return true //return type boolean required for over right methods
             }
-
 
         })
 
@@ -109,19 +92,11 @@ class DreamViewAdapter(val context: Context, val db: SQLiteDatabase, var dreams:
 
                     context.startActivity(intent)
                     //starts the activity using context that is stated above.
-                }
-
-
+               }
             }
         }
-
-
-
     }
-
 }
 
 
 class MyViewHolder(val view: View): RecyclerView.ViewHolder(view)
-
-

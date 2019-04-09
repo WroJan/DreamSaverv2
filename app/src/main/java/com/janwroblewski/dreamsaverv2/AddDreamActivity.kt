@@ -30,8 +30,6 @@ class AddDreamActivity : AppCompatActivity() {
 
         actionbarBack.setDisplayHomeAsUpEnabled(true)
 
-
-
         dater()
 
         if(intent.hasExtra("title")) {title_text_input.setText(intent.getStringExtra("title"))}

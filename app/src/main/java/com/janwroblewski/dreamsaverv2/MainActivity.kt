@@ -11,6 +11,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
+    //git-hub repository
+    //https://github.com/WroJan/DreamSaverv2
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -19,14 +22,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, AddDreamActivity::class.java)
             startActivity(intent)
 
-
-
         }
-
-
     }
-
-
         override fun onResume() {
             super.onResume()
 
@@ -47,16 +44,11 @@ class MainActivity : AppCompatActivity() {
                     dream.desc = cursor.getString(2)
                     dreams.add(dream)
                     cursor.moveToNext()
-
                 }
-
             }
             cursor.close()
 
             recycler_view.layoutManager = LinearLayoutManager(this)
             recycler_view.adapter = DreamViewAdapter(applicationContext, db, dreams)
         }
-
-
-
 }
