@@ -1,6 +1,44 @@
-https://github.com/WroJan/DreamSaverv2
+Introduction 
+Dream Saver in an android application developed in Kotlin Java-based programming language. The system is simple but effective, gathers all of users dreams in one place. 
+
+Dreams save on SQLite as text format; each object contains title, description and date. 
+
+Layout
+The application has two activities ‘MainActivity’ & ‘AddDreamActivity’. The activity that adds dreams also updates the dreams. 
+
+Main Activity 
+The window that welcomes user, linked with activity_main.xml as Recycler view and recycler view uses dream_view.xml as each card in recycler view. 
+The user can update each dream by pressing on a specific card view to update the dream. AddDreamActivity opens up and the user can update the dream by hitting the save button. 
+
+Add dream Activity 
+An activity where the user adds dream with Title, Description and the Date. 
+Title – Edit Text feature
+Description – Text input that expands as text reaches the edge of the screen
+Date – plain text displays current date, and has date dialogue feature triggered by onClickListener attached to the plain text. 
+Save button, and back arrow shares one onBackPressed() function. Share button uses android share feature. 
+
+Updated feature 
+Each dream has its id. When a user adds new dream object recycler view assign ID on each card and using that ID application know if using code to tell if create further object or delete the existing one and create new with the updated title, description or date. 
+Delete dream 
+To delete dream user has to click and hold card view to delete the dream from object ArrayList and sqlight. Kotlin provides build-in function long press.  I will talk about this in more detail in the further section. 
+
+Analysis 
+Before application coding. I did the study on different layouts and colours on dream application. The system at the start had big ADD button in main activity indicating to add dream window. The recycler view was in a separate window, and the user had to open side menu to access it.
+
+I will explain what could and should be coded in the application to make it look more professional and more useable. 
+Delete button
+At the moment delete button is not, and the user can delete any dream by mistake when updating the application. One click to update and long press for delete. Application update and should be identified on the screen, so a user knows when he is adding or updating.  Delete button could be placed in the update window.  
+Colours 
+The colours in dream saver are not connected with the idea of the dream. The green colour in the application does not remind of the overall idea of a dream. Tones should be more blue and black to represent a dream state. 
+Cloud persistence 
+In fact, the application saves objects in sqlight the app could be saving objects in cloud-like firebase or MongoDB using mLAB which has 500mb data free. 
 
 
-![alt text](https://github.com/WroJan/DreamSaverv2/blob/master/icon.png)
 
-<img src="https://github.com/WroJan/DreamSaverv2/blob/master/icon.png" alt="Smiley face" height="42" width="42">
+
+
+
+
+
+
+
